@@ -86,7 +86,7 @@ follow:
 customLinks:
   - item:
     - text: old blog
-      url: blog.csdn.net/handsomehow
+      url: http://blog.csdn.net/handsomehow
     message: old blog    
 
 #googleAnaly, your id link UA-12345678-X
