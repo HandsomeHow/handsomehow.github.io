@@ -94,21 +94,3 @@ googleAnaly:
   config: false
   id: UA-58146229-1
 
-#baidu tongji
-baiduTongji:
-  config: true
-  id: c12b560f0372d5995701449b9eac606c
-
-#comment config
-disqus:
-  config: false
-  id: piznblog
-
-duoshuo:
-  config: true
-  id: 9leg
-
-#baidu share config
-baiduShare:
-  config: true
-  
