@@ -39,10 +39,10 @@ timezone:      null
 
 
 #Site config
-title: 9leg
-description: java,scala
-keywords: java,scala
-url: http://9leg.com
+title: HandsomeHow's Blog
+description: The auther is too lazy to left anything;
+keywords: HandsomeHow
+url: www.handsomehow.com
 feed: /atom.xml
 favicon: /images/shortcut.jpg
 
@@ -61,74 +61,51 @@ nav:
 
 #Author config
 author:
-    name: zhujiajun
-    email: zhujiajun.me@gmail.com
+    name: HandsomeHow
+    email: handsomehowyxh@gmail.com
     imageLink: /images/header.jpg
-    simpleIntro: I Have a Dream
+    simpleIntro: Just do IT
     detailIntro:
-      <p>广告界的程序猿</p>
-      <p>目前在点评工作</p>
-      <p>主要使用Java,Scala不断学习中...</p>
+      <p>本科在读..</p>
+      <p>ACM在打</p>
       <p></p>
 
 #Follow me, you can choose your icon by http://fortawesome.github.io/Font-Awesome/icons/#brand
 follow:
-  - class: icon-rss
-    url: /atom.xml
-  - class: icon-weibo
-    url: http://weibo.com/
   - class: icon-facebook
-    url: http://facebook.com/
+    url: https://www.facebook.com/HandsomeHowww
   - class: icon-github-alt
-    url: https://github.com/zJiaJun/
+    url: https://github.com/handsomehow/
   - class: icon-twitter
-    url: https://twitter.com/zhujiajun_me
-  - class: icon-google-plus
-    url: https://plus.google.com/116595571760191938657/about
+    url: https://twitter.com/handsomehow
 
 #Links
 customLinks:
   - item:
-    - text: 技术小黑屋
-      url: http://droidyue.com/
-    - text: Jekyll
-      url: http://jekyllrb.com
-    - text: Jekyll Theme
-      url: http://www.zhanxin.info/themes.html
-    message: Friends    
-  - item:
-    - text: Java Code Geeks
-      url: http://www.javacodegeeks.com/
-    - text: Web Developer
-      url: http://www.fromdev.com/
-    - text: BeginnersBook
-      url: http://beginnersbook.com/
-    - text: Mkyong
-      url: http://www.mkyong.com/
-    - text: Java By Nataraj
-      url: http://javabynataraj.blogspot.in/
-    message: About Java
+    - text: old blog
+      url: http://blog.csdn.net/handsomehow
+    message: old blog    
 
 #googleAnaly, your id link UA-12345678-X
-googleAnaly:
-  config: false
-  id: UA-58146229-1
+#googleAnaly:
+#  config: false
+#  id: UA-58146229-1
 
 #baidu tongji
-baiduTongji:
-  config: true
-  id: c12b560f0372d5995701449b9eac606c
+#baiduTongji:
+#  config: true
+#  id: c12b560f0372d5995701449b9eac606c
 
 #comment config
-disqus:
-  config: false
-  id: piznblog
+#disqus:
+#  config: false
+#  id: piznblog
 
-duoshuo:
-  config: true
-  id: 9leg
+#duoshuo:
+#  config: true
+#  id: 9leg
 
 #baidu share config
-baiduShare:
-  config: true
+#baiduShare:
+#  config: true
   
