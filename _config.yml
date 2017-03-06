@@ -80,30 +80,14 @@ follow:
   - class: icon-github-alt
     url: https://github.com/handsomehow/
   - class: icon-twitter
-    url: https://twitter.com/handsomehowe
+    url: https://twitter.com/handsomehow
 
 #Links
 customLinks:
   - item:
-    - text: 技术小黑屋
-      url: http://droidyue.com/
-    - text: Jekyll
-      url: http://jekyllrb.com
-    - text: Jekyll Theme
-      url: http://www.zhanxin.info/themes.html
-    message: Friends    
-  - item:
-    - text: Java Code Geeks
-      url: http://www.javacodegeeks.com/
-    - text: Web Developer
-      url: http://www.fromdev.com/
-    - text: BeginnersBook
-      url: http://beginnersbook.com/
-    - text: Mkyong
-      url: http://www.mkyong.com/
-    - text: Java By Nataraj
-      url: http://javabynataraj.blogspot.in/
-    message: About Java
+    - text: old blog
+      url: blog.csdn.net/handsomehow
+    message: old blog    
 
 #googleAnaly, your id link UA-12345678-X
 googleAnaly:
