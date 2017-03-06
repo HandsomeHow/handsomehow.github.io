@@ -39,10 +39,10 @@ timezone:      null
 
 
 #Site config
-title: 9leg
+title: handsomehow
 description: java,scala
 keywords: java,scala
-url: http://9leg.com
+url: http://www.handsomehow.com
 feed: /atom.xml
 favicon: /images/shortcut.jpg
 
@@ -61,14 +61,12 @@ nav:
 
 #Author config
 author:
-    name: zhujiajun
-    email: zhujiajun.me@gmail.com
+    name: handsomehow
+    email: handsomehowyxh@gmail.com
     imageLink: /images/header.jpg
-    simpleIntro: I Have a Dream
+    simpleIntro: Nothing is left because the auther is too lazy
     detailIntro:
-      <p>广告界的程序猿</p>
-      <p>目前在点评工作</p>
-      <p>主要使用Java,Scala不断学习中...</p>
+      <p>learning....</p>
       <p></p>
 
 #Follow me, you can choose your icon by http://fortawesome.github.io/Font-Awesome/icons/#brand
@@ -80,11 +78,9 @@ follow:
   - class: icon-facebook
     url: http://facebook.com/
   - class: icon-github-alt
-    url: https://github.com/zJiaJun/
+    url: https://github.com/handsomehow/
   - class: icon-twitter
-    url: https://twitter.com/zhujiajun_me
-  - class: icon-google-plus
-    url: https://plus.google.com/116595571760191938657/about
+    url: https://twitter.com/handsomehowe
 
 #Links
 customLinks:
