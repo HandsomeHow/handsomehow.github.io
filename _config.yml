@@ -40,8 +40,8 @@ timezone:      null
 
 #Site config
 title: handsomehow
-description: java,scala
-keywords: java,scala
+description: handsomehow,cpp
+keywords: handsomehow,cpp
 url: http://www.handsomehow.com
 feed: /atom.xml
 favicon: /images/shortcut.jpg
