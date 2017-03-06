@@ -7,4 +7,4 @@ category: "others"
 
 hello the crule world
 
-#[转载](http://droidyue.com/blog/2014/12/28/static-biding-and-dynamic-binding-in-java/){:target="_blank"}
+#[转载](http://www.handsomehow.com/others/2017/03/06/hello-world.html){:target="_blank"}
