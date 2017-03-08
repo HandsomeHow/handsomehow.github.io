@@ -16,11 +16,13 @@ ul, ol {
     list-style-type: none;
 }
 body {
-    background: #92b3a2 url(../images/bg.jpg) repeat 0 0;
+    
+	background: #92b3a2 url(../images/bg.jpg) repeat 0 0;
     font-size: 14px;
     line-height: 1.5;
     font-family: Georgia, Hiragino Sans GB,\5b8b\4f53;
     text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.2);
+	
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -29,7 +31,7 @@ h1, h2, h3, h4, h5, h6 {
 h1 { margin-bottom: 1em; }
 p { margin: 1em 0; }
 
-a         { color: #91736b; text-decoration: none; }
+a         {  text-decoration: none; }
 
 ::-moz-selection {background: rgba(252, 252, 82,0.2)}
 ::selection {background: rgba(252, 252, 82,0.2)}
@@ -776,7 +778,7 @@ a         { color: #91736b; text-decoration: none; }
 		background-position: 0 0;
 	}
 	.nav {
-		width: 200px;
+		width: 300px;
 		padding-top: 10px;
 		height: 60px;
 		float: left;
@@ -840,7 +842,7 @@ a         { color: #91736b; text-decoration: none; }
 
 	.main {
 		float: left;
-		width: 400px;
+		width: 375px;
 		padding: 20px 10px;
 		min-height: 300px;
 		height: auto;
