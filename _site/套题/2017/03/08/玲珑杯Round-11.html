@@ -2,14 +2,14 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Categories - handsomehow</title>
+        <title>玲珑杯Round#11 - handsomehow</title>
         <!-- meta -->
 		<meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <meta name="generator" content="Jekyll" />
         <meta name="author" content="handsomehow" />
         <meta name="description" content="handsomehow,cpp" />
-        <meta name="keywords" content="HandsomeHow'blog,Categories" />
+        <meta name="keywords" content="" />
         <meta name="robots" content="index,nofollow" />
         <!-- atom -->
         <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="http://localhost:4000/atom.xml" />
@@ -43,7 +43,7 @@
                         
                         
                         
-                        <li class="nav-item nav-item-active">
+                        <li class="nav-item ">
                             <a href="http://localhost:4000/categories.html">
                                 分类目录
                             </a>
@@ -97,50 +97,55 @@
         <div class="contain fn-clear">
             <div class="container fn-clear">
                 <div class="main">
-                    <div class="article">
-    <h3 class="title">Categories</h3>
-    <ul class="categories">
-    
-    
-        <li class="categories-item"><a href="#others-ref">
-            others
-        </a></li>
-    
-        <li class="categories-item"><a href="#套题-ref">
-            套题
-        </a></li>
-    
-    </ul>
+                    <div class="article article-post">
+    <h2 class="title">玲珑杯Round#11</h2>
+    <div class="info">
+        <span class="info-title"><i class="icon-calendar"></i> Published: </span>
+        <span class="info-date">08 Mar 2017</span>
+        <span class="info-title"><i class="icon-folder-open"></i> Category: </span>
+        <span class="info-link"><a href="http://localhost:4000/categories.html#套题-ref" >套题</a></span>
+    </div>
+    <p>玲珑杯又大发善心发50个杯子了,这种好事怎么能错过呢</p>
+<h3 id="problem-a"><a href="http://www.ifrog.cc/acm/problem/1096">Problem A</a></h3>
+<p>n的范围非常小,所以我们枚举每一份的数量就好了</p>
 
-<div class="article">
- 
-  <h2  class="article-year" id="others-ref" data-year="&diams;">others</h2>
-  <ul style="list-style: none">
-      
-    
-      
-        
-            <li style="background:#F2EEEC; padding:5px; margin:3px 0"><a href="/others/2017/03/07/hello-world.html">第一篇博客</a></li>
-        
-      
-    
-   
-  </ul>
- 
-  <h2  class="article-year" id="套题-ref" data-year="&diams;">套题</h2>
-  <ul style="list-style: none">
-      
-    
-      
-        
-            <li style="background:#F2EEEC; padding:5px; margin:3px 0"><a href="/%E5%A5%97%E9%A2%98/2017/03/08/%E7%8E%B2%E7%8F%91%E6%9D%AFRound-11.html">玲珑杯Round#11</a></li>
-        
-      
-    
-   
-  </ul>
+<h3 id="problem-b"><a href="http://www.ifrog.cc/acm/problem/1097">Problem B</a></h3>
+<p>我们可以定义DP[i][j]表示前i个B工厂,前j个A工厂情况下,做多能建多少个桥,那么DP[i][j] = max(dp[i-1][l]) + 1 (k &lt; i, l &lt; j),但是这样的话复杂度是O(n^2)的.不过我们发现,转移时涉及的区间是连续的,所以我们可以用线段树/树状数组维护一下就好了,复杂度降到了O(nlogn)</p>
 
-</div>
+<h3 id="problem-d"><a href="http://www.ifrog.cc/acm/problem/1099">Problem D</a></h3>
+<p>显然,经过一次f(x)以后,这个数不会超过9<em>9</em>9,然后爆搜一下就好了</p>
+
+<h3 id="problem-e"><a href="http://www.ifrog.cc/acm/problem/1100">Problem E</a></h3>
+<p>我们定义DP[i][j]为长度为i的串,且末尾匹配了j位的个数,然后我们枚举最后一位,计算他会转移到DP[i+1][k].
+k我们可以提前用KMP或者AC自动机预处理一下,总复杂度O(n^2)</p>
+
+<h3 id="problem-f"><a href="http://www.ifrog.cc/acm/problem/1101">Problem F</a></h3>
+<p>因为相邻两个点颜色都是不同的,所以我们只需要判断每条边的两个断点颜色是否相同以及是否有交叉的边.
+交叉的边我们可以通过判断一条边的两个端点是否都在另一条边的统一端</p>
+
+<h3 id="problem-h"><a href="http://www.ifrog.cc/acm/problem/1103">Problem h</a></h3>
+<p>这个题好像和B是同一个题,只不过B种的转移方程DP[i][j] = max(dp[i-1][l]) + 1 (k &lt; i, l &lt; j)改成DP[i][j] = max(dp[i-1][l] + a[j] + b[i])  (k &lt; i, l &lt; j) 即可</p>
+
+
+    <div class="bdsharebuttonbox">
+        <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+        <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+        <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+        <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+        <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+        <a href="#" class="bds_mail" data-cmd="mail" title="分享到邮件分享"></a>
+        <a href="#" class="bds_more" data-cmd="more"></a>
+    </div>
+    <nav class="article-previous fn-clear">
+        
+        <a class="prev" href="/others/2017/03/07/hello-world.html" rel="bookmark">&laquo;&nbsp;第一篇博客</a>
+        
+        
+    </nav>
+    <div class="comment">
+        
+        
+    </div>
 </div>
 
                 </div>
