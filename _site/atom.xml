@@ -4,7 +4,7 @@
    <title>handsomehow</title>
    <link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://localhost:4000" rel="alternate" type="text/html" />
-   <updated>2017-03-08T12:33:06+08:00</updated>
+   <updated>2017-03-08T12:49:33+08:00</updated>
    <id>http://localhost:4000</id>
    <author>
      <name>handsomehow</name>
@@ -22,7 +22,7 @@
 &lt;p&gt;n的范围非常小,所以我们枚举每一份的数量就好了&lt;/p&gt;
 
 &lt;h3 id=&quot;problem-b&quot;&gt;&lt;a href=&quot;http://www.ifrog.cc/acm/problem/1097&quot;&gt;Problem B&lt;/a&gt;&lt;/h3&gt;
-&lt;p&gt;我们可以定义DP[i][j]表示前i个B工厂,前j个A工厂情况下,做多能建多少个桥,那么DP[i][j] = max(dp[i-1][l]) + 1 (k &amp;lt; i, l &amp;lt; j),但是这样的话复杂度是O(n^2)的.不过我们发现,转移时涉及的区间是连续的,所以我们可以用线段树/树状数组维护一下就好了,复杂度降到了O(nlogn)&lt;/p&gt;
+&lt;p&gt;我们可以定义DP[i][j]表示前i个B工厂,前j个A工厂情况下,做多能建多少个桥,那么DP[i][j] = max(dp[i-1][l]) + 1 (l &amp;lt; j),但是这样的话复杂度是O(n^2)的.不过我们发现,转移时涉及的区间是连续的,所以我们可以用线段树/树状数组维护一下就好了,复杂度降到了O(nlogn)&lt;/p&gt;
 
 &lt;h3 id=&quot;problem-d&quot;&gt;&lt;a href=&quot;http://www.ifrog.cc/acm/problem/1099&quot;&gt;Problem D&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;显然,经过一次f(x)以后,这个数不会超过9&lt;em&gt;9&lt;/em&gt;9,然后爆搜一下就好了&lt;/p&gt;
