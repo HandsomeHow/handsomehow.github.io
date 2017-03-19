@@ -5,5 +5,5 @@ date:   2017-03-06 17:20:11
 category: "others"
 ---
 
-hello the crule world
+hello the cruel world
 
