@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>玲珑杯Round#11 - handsomehow</title>
+        <title>QingdaoU开源OJ后期使用与维护 - handsomehow</title>
         <!-- meta -->
 		<meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -98,34 +98,134 @@
             <div class="container fn-clear">
                 <div class="main">
                     <div class="article article-post">
-    <h2 class="title">玲珑杯Round#11</h2>
+    <h2 class="title">QingdaoU开源OJ后期使用与维护</h2>
     <div class="info">
         <span class="info-title"><i class="icon-calendar"></i> Published: </span>
-        <span class="info-date">08 Mar 2017</span>
+        <span class="info-date">20 Mar 2017</span>
         <span class="info-title"><i class="icon-folder-open"></i> Category: </span>
-        <span class="info-link"><a href="http://localhost:4000/categories.html#套题-ref" >套题</a></span>
+        <span class="info-link"><a href="http://localhost:4000/categories.html#OJ维护-ref" >OJ维护</a></span>
     </div>
-    <p>玲珑杯又大发善心发50个杯子了,这种好事怎么能错过呢</p>
-<h3 id="problem-a"><a href="http://www.ifrog.cc/acm/problem/1096">Problem A</a></h3>
-<p>n的范围非常小,所以我们枚举每一份的数量就好了</p>
+    <p>本文介绍了关于QingDaoU开源OJ的一种数据迁移的方法,要求两台服务器的数据不能有交叉,否则被植入数据的那台的冲突数据会被抛弃.</p>
 
-<h3 id="problem-b"><a href="http://www.ifrog.cc/acm/problem/1097">Problem B</a></h3>
-<p>我们可以定义DP[i][j]表示前i个B工厂,前j个A工厂情况下,做多能建多少个桥,那么DP[i][j] = max(dp[i-1][l]) + 1 (l &lt; j),但是这样的话复杂度是O(n^2)的.不过我们发现,转移时涉及的区间是连续的,所以我们可以用线段树/树状数组维护一下就好了,复杂度降到了O(nlogn)</p>
+<hr />
+<h1 id="拥有数据的服务器">拥有数据的服务器</h1>
 
-<h3 id="problem-d"><a href="http://www.ifrog.cc/acm/problem/1099">Problem D</a></h3>
-<p>显然,经过一次f(x)以后,这个数不会超过9<em>9</em>9,然后爆搜一下就好了</p>
+<h2 id="ssh登录存有数据的服务器">ssh登录存有数据的服务器</h2>
+<div class="highlighter-rouge"><pre class="highlight"><code>ssh username@ip
+</code></pre>
+</div>
+<h2 id="查看web_server的容器id">查看web_server的容器ID</h2>
+<div class="highlighter-rouge"><pre class="highlight"><code>swjtuacmer@swjtuacmer-ubuntu:~
+sudo docker ps -a
+CONTAINER ID        IMAGE                 COMMAND                  CREATED             STATUS              PORTS                         NAMES
+86762ccac25f        qduoj/judger          "/bin/sh -c 'bash ..."   3 hours ago         Up 3 hours          0.0.0.0:8085-&gt;8080/tcp        judger_judger_1
+9c13f35c3746        nginx                 "nginx -g 'daemon ..."   2 months ago        Up 5 hours          0.0.0.0:80-&gt;80/tcp, 443/tcp   ojwebserver_nginx_1
+a24e56cc5911        qduoj/oj_web_server   "/bin/sh -c 'bash ..."   2 months ago        Up 3 hours          127.0.0.1:8080-&gt;8080/tcp      ojwebserver_oj_web_server_1
+58f6cd86e207        mysql                 "docker-entrypoint..."   3 months ago        Up 5 hours          3306/tcp                      ojwebserver_mysql_1
+fdf5ae29470f        redis                 "docker-entrypoint..."   3 months ago        Up 5 hours          6379/tcp                      ojwebserver_redis_1
 
-<h3 id="problem-e"><a href="http://www.ifrog.cc/acm/problem/1100">Problem E</a></h3>
-<p>我们定义DP[i][j]为长度为i的串,且末尾匹配了j位的个数,然后我们枚举最后一位,计算他会转移到DP[i+1][k].
-k我们可以提前用KMP或者AC自动机预处理一下,总复杂度O(n^2)</p>
+</code></pre>
+</div>
 
-<h3 id="problem-f"><a href="http://www.ifrog.cc/acm/problem/1101">Problem F</a></h3>
-<p>因为相邻两个点颜色都是不同的,所以我们只需要判断每条边的两个断点颜色是否相同以及是否有交叉的边.
-交叉的边我们可以通过判断一条边的两个端点是否都在另一条边的统一端</p>
+<h2 id="进入web_server容器">进入web_server容器</h2>
 
-<h3 id="problem-h"><a href="http://www.ifrog.cc/acm/problem/1103">Problem h</a></h3>
-<p>这个题好像和B是同一个题,只不过B种的转移方程DP[i][j] = max(dp[i-1][l]) + 1 (k &lt; i, l &lt; j)改成DP[i][j] = max(dp[i-1][l] + a[j] + b[i])  (k &lt; i, l &lt; j) 即可</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>swjtuacmer@swjtuacmer-ubuntu:~
+sudo docker exec -i -t a24e56cc5911 /bin/bash
+</code></pre>
+</div>
 
+<h2 id="导出用户题目比赛等信息-并退出">导出用户/题目/比赛等信息 并退出</h2>
+<div class="highlighter-rouge"><pre class="highlight"><code>root@a24e56cc5911:/code# python manage.py dumpdata &gt;oj_data.json
+root@a24e56cc5911:/code# exit
+</code></pre>
+</div>
+
+<h2 id="进入onlinejudge目录-传输导出的信息">进入OnlineJudge目录 传输导出的信息</h2>
+<div class="highlighter-rouge"><pre class="highlight"><code>cd /home/OnlineJudge
+sudo scp oj_data.json username@接受数据的服务器ip:/home/ubuntu/
+</code></pre>
+</div>
+
+<h2 id="进入数据文件夹的父文件夹-将数据文件夹发送至接受这些数据的服务器上">进入数据文件夹的父文件夹 将数据文件夹发送至接受这些数据的服务器上</h2>
+<p>注意发送数据的时候不能直接发送到接受数据服务器的/home目录下,因为我们在/home下没有权限</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>cd /home
+sudo scp -r /home/test_case username@接受数据的服务器ip:/home/ubuntu/
+</code></pre>
+</div>
+<p>因为数据比较多 所以这个过程会非常长 所以如果只有没几个题目的数据是新的话，只需要传输新加的那几个文件夹就可以了，不用把整个test_case文件夹传过去</p>
+
+<p>如果有图片资源要更新，则还需要传输upload文件夹，当然在确定是哪几个图片的情况下，则只需要传输这几个文件</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo scp -r /home/upload username@接受数据的服务器ip:/home/ubuntu/
+</code></pre>
+</div>
+<p>在传输完test_case ,oj_data.json, upload这些数据以后，退出这台服务器</p>
+
+<h1 id="拥有数据的服务器操作到这里就结束了">拥有数据的服务器操作到这里就结束了</h1>
+<hr />
+<h1 id="接受数据的服务器">接受数据的服务器</h1>
+
+<h2 id="ssh登录接收数据服务器">ssh登录接收数据服务器</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>ssh username@ip
+</code></pre>
+</div>
+
+<h2 id="将接收的测试数据图片资源更新到本地">将接收的测试数据，图片资源更新到本地</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo cp -rf /home/ubuntu/test_case/* /home/test_case
+sudo cp -rf /home/ubuntu/upload/* /home/upload
+</code></pre>
+</div>
+<h2 id="将用户题目比赛数据移至onlinejudge文件夹下">将用户/题目/比赛数据移至OnlineJudge文件夹下</h2>
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo mv /home/ubuntu/oj_data.json /home/OnlineJudge
+</code></pre>
+</div>
+
+<p>查询oj_web_server容器的ID并进入容器</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>ubuntu@VM-88-210-ubuntu:~$ sudo docker ps -a
+CONTAINER ID        IMAGE                 COMMAND                  CREATED             STATUS              PORTS                         NAMES
+aebd027ba0de        qduoj/judger          "/bin/sh -c 'bash ..."   About an hour ago   Up About an hour    0.0.0.0:8085-&gt;8080/tcp        judger_judger_1
+b808ca027430        nginx                 "nginx -g 'daemon ..."   2 hours ago         Up About an hour    0.0.0.0:80-&gt;80/tcp, 443/tcp   ojwebserver_nginx_1
+d6213b395107        qduoj/oj_web_server   "/bin/sh -c 'bash ..."   2 hours ago         Up About an hour    127.0.0.1:8080-&gt;8080/tcp      ojwebserver_oj_web_server_1
+241773a1e436        redis                 "docker-entrypoint..."   2 hours ago         Up About an hour    6379/tcp                      ojwebserver_redis_1
+d1359b98354b        mysql                 "docker-entrypoint..."   2 hours ago         Up About an hour    3306/tcp                      ojwebserver_mysql_1
+ubuntu@VM-88-210-ubuntu:~$ sudo docker exec -i -t d6213b395107 /bin/bash
+</code></pre>
+</div>
+
+<h2 id="覆盖数据并退出">覆盖数据并退出</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>root@d6213b395107:/code# python manage.py loaddata oj_data.json
+root@d6213b395107:/code# exit
+</code></pre>
+</div>
+
+<h2 id="数据导入后的一些处理">数据导入后的一些处理</h2>
+<p>由于那个导入的json里包含了判题服务器的信息,所以需要登录OJ后台去检查一下判题服务器的配置(IP,TOKEN等)
+关于TOKEN的查看
+Token在OnlineJudge/dockerfile/judger/docker-compose.yml 文件里查看</p>
+
+<p>而IP则用下面的方法查看</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo docker inspect --format='' {JUDGER_CONTAINER_ID}
+</code></pre>
+</div>
+<p>其中{JUDGER_CONTAINER_ID}是judger在docker容器里的ID,请用docker ps -a查看.</p>
+
+<p>如果出现Invlaid Token的话就说明配置出问题了,或者是这一题的数据有问题了(比如没有数据之类的问题)
+要求网页后台的Token和IP是与上述方法获得的Token与IP是一致的</p>
+
+<hr />
+<h1 id="缺陷">缺陷</h1>
+<p>1.这是数据的替换，不是合并，所以当两个OJ的数据有冲突时，接收数据的OJ的数据会被抹掉
+2.由于本人能力有限，暂时不会移植submission(用户提交)部分，所以这一部分的数据只有原来的,不会被更新，也就是说，新添加的比赛里的提交，都是没有的，但是能看到排名等情况。</p>
+
+<h1 id="to-be-updated">To be updated</h1>
+<p>1.submission这一部分的数据是在mysql容器里的，但是不知道为什么..我不知道我的服务器的mysql的密码，如果有密码的话其实可以mysqldump把submission给迁移过去，submission所在的目录是
+/home/data/mysql/oj_submission
+在mysql容器下的路径是 
+/var/lib/mysql
+2.过几天来更批量导入题库</p>
 
     <div class="bdsharebuttonbox">
         <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
@@ -138,10 +238,8 @@ k我们可以提前用KMP或者AC自动机预处理一下,总复杂度O(n^2)</p>
     </div>
     <nav class="article-previous fn-clear">
         
-        <a class="prev" href="/others/2017/03/07/hello-world.html" rel="bookmark">&laquo;&nbsp;第一篇博客</a>
+        <a class="prev" href="/%E5%A5%97%E9%A2%98/2017/03/18/solution-of-swjtu-month-match.html" rel="bookmark">&laquo;&nbsp;swjtu2017-3月月赛题解</a>
         
-        
-        <a class="next" href="/%E5%A5%97%E9%A2%98/2017/03/18/solution-of-swjtu-month-match.html" rel="bookmark">swjtu2017-3月月赛题解&nbsp;&raquo;</a>
         
     </nav>
     <div class="comment">
