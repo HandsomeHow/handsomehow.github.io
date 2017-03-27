@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>玲珑杯Round#11 - handsomehow</title>
+        <title>CodeForces 682D DP - handsomehow</title>
         <!-- meta -->
 		<meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -98,34 +98,64 @@
             <div class="container fn-clear">
                 <div class="main">
                     <div class="article article-post">
-    <h2 class="title">玲珑杯Round#11</h2>
+    <h2 class="title">CodeForces 682D DP</h2>
     <div class="info">
         <span class="info-title"><i class="icon-calendar"></i> Published: </span>
-        <span class="info-date">08 Mar 2017</span>
+        <span class="info-date">27 Mar 2017</span>
         <span class="info-title"><i class="icon-folder-open"></i> Category: </span>
-        <span class="info-link"><a href="http://localhost:4000/categories.html#套题-ref" >套题</a></span>
+        <span class="info-link"><a href="http://localhost:4000/categories.html#dp-ref" >dp</a></span>
     </div>
-    <p>玲珑杯又大发善心发50个杯子了,这种好事怎么能错过呢</p>
-<h3 id="problem-a"><a href="http://www.ifrog.cc/acm/problem/1096">Problem A</a></h3>
-<p>n的范围非常小,所以我们枚举每一份的数量就好了</p>
+    <p><a href="http://codeforces.com/contest/682/problem/D">链接</a></p>
 
-<h3 id="problem-b"><a href="http://www.ifrog.cc/acm/problem/1097">Problem B</a></h3>
-<p>我们可以定义DP[i][j]表示前i个B工厂,前j个A工厂情况下,做多能建多少个桥,那么DP[i][j] = max(dp[i-1][l]) + 1 (l &lt; j),但是这样的话复杂度是O(n^2)的.不过我们发现,转移时涉及的区间是连续的,所以我们可以用线段树/树状数组维护一下就好了,复杂度降到了O(nlogn)</p>
+<p>题意：给定两个长度小于等于1000的串,让你选不超过K(k &lt;= 10)个串，使得这些串是两个给定串的子串，并且是按照顺序出现的。</p>
 
-<h3 id="problem-d"><a href="http://www.ifrog.cc/acm/problem/1099">Problem D</a></h3>
-<p>显然,经过一次f(x)以后,这个数不会超过9<em>9</em>9,然后爆搜一下就好了</p>
+<p>题解：</p>
 
-<h3 id="problem-e"><a href="http://www.ifrog.cc/acm/problem/1100">Problem E</a></h3>
-<p>我们定义DP[i][j]为长度为i的串,且末尾匹配了j位的个数,然后我们枚举最后一位,计算他会转移到DP[i+1][k].
-k我们可以提前用KMP或者AC自动机预处理一下,总复杂度O(n^2)</p>
+<p>考虑动态规划。</p>
 
-<h3 id="problem-f"><a href="http://www.ifrog.cc/acm/problem/1101">Problem F</a></h3>
-<p>因为相邻两个点颜色都是不同的,所以我们只需要判断每条边的两个断点颜色是否相同以及是否有交叉的边.
-交叉的边我们可以通过判断一条边的两个端点是否都在另一条边的统一端</p>
+<p>我们用f[i][j][k]表示s1串的前i位,s2串的前j位，匹配了k个子串，且最后一个子串是以s1[i],s2[j]结尾的最大值。</p>
 
-<h3 id="problem-h"><a href="http://www.ifrog.cc/acm/problem/1103">Problem h</a></h3>
-<p>这个题好像和B是同一个题,只不过B种的转移方程DP[i][j] = max(dp[i-1][l]) + 1 (k &lt; i, l &lt; j)改成DP[i][j] = max(dp[i-1][l] + a[j] + b[i])  (k &lt; i, l &lt; j) 即可</p>
+<p>再用g[i][j][k]表示s1串的前i位,s2串的前j位，匹配了k个子串，但且最后一个子串无需以s1[i],s2[j]结尾的最大值。</p>
 
+<p>那么当s1[i]==s2[j]时，我们有f[i][j][k] = max(f[i-1][j-1][k],g[i-1][j-1][k-1]) + 1</p>
+
+<p>然后一直更新g[][][]就可以了</p>
+
+<div class="language-c++ highlighter-rouge"><pre class="highlight"><code><span class="cm">/*************************************************************************
+    &gt; File Name: 682d.cpp
+    &gt; Author: HandsomeHow
+    &gt; Mail: handsomehowyxh@gmail.com 
+    &gt; Created Time: 2017/3/27 15:42:27
+ ************************************************************************/</span>
+
+<span class="cp">#include &lt;bits/stdc++.h&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="cp">#define rep(i,a,b) for(int i=(a);i&lt;=(b);i++)
+#define per(i,a,b) for(int i=(a);i&gt;=(b);i--)
+</span><span class="c1">// (づ°ω°)づe★------------------------------------------------
+</span><span class="k">const</span> <span class="kt">int</span> <span class="n">maxn</span> <span class="o">=</span> <span class="mi">1234</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">f</span><span class="p">[</span><span class="n">maxn</span><span class="p">][</span><span class="n">maxn</span><span class="p">][</span><span class="mi">11</span><span class="p">],</span> <span class="n">g</span><span class="p">[</span><span class="n">maxn</span><span class="p">][</span><span class="n">maxn</span><span class="p">][</span><span class="mi">11</span><span class="p">];</span>
+<span class="kt">char</span> <span class="n">s1</span><span class="p">[</span><span class="n">maxn</span><span class="p">],</span><span class="n">s2</span><span class="p">[</span><span class="n">maxn</span><span class="p">];</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+	<span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">K</span><span class="p">;</span>
+	<span class="n">scanf</span><span class="p">(</span><span class="s">"%d%d%d"</span><span class="p">,</span><span class="o">&amp;</span><span class="n">n</span><span class="p">,</span><span class="o">&amp;</span><span class="n">m</span><span class="p">,</span><span class="o">&amp;</span><span class="n">K</span><span class="p">);</span>
+	<span class="n">scanf</span><span class="p">(</span><span class="s">"%s%s"</span><span class="p">,</span><span class="n">s1</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">s2</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+	<span class="n">rep</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">){</span>
+		<span class="n">rep</span><span class="p">(</span><span class="n">j</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">m</span><span class="p">){</span>
+			<span class="n">rep</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">K</span><span class="p">){</span>
+				<span class="k">if</span><span class="p">(</span><span class="n">s1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">s2</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+					<span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">k</span><span class="p">],</span> <span class="n">g</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+				<span class="n">g</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">max</span><span class="p">(</span><span class="n">g</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">k</span><span class="p">],</span><span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="n">k</span><span class="p">]),</span><span class="n">max</span><span class="p">(</span><span class="n">g</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="n">k</span><span class="p">],</span><span class="n">g</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">k</span><span class="p">]));</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">g</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="n">m</span><span class="p">][</span><span class="n">K</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre>
+</div>
 
     <div class="bdsharebuttonbox">
         <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
@@ -138,10 +168,10 @@ k我们可以提前用KMP或者AC自动机预处理一下,总复杂度O(n^2)</p>
     </div>
     <nav class="article-previous fn-clear">
         
-        <a class="prev" href="/others/2017/03/07/hello-world.html" rel="bookmark">&laquo;&nbsp;第一篇博客</a>
+        <a class="prev" href="/%E7%BD%91%E7%BB%9C%E6%B5%81/2017/03/24/bzoj1497.html" rel="bookmark">&laquo;&nbsp;bzoj1497-最大权闭合子图</a>
         
         
-        <a class="next" href="/%E5%A5%97%E9%A2%98/2017/03/18/solution-of-swjtu-month-match.html" rel="bookmark">swjtu2017-3月月赛题解&nbsp;&raquo;</a>
+        <a class="next" href="/dfs/2017/03/27/CodeForces686D.html" rel="bookmark">CodeForces 686D 树的重心&nbsp;&raquo;</a>
         
     </nav>
     <div class="comment">
