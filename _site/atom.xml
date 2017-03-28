@@ -4,7 +4,7 @@
    <title>handsomehow</title>
    <link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://localhost:4000" rel="alternate" type="text/html" />
-   <updated>2017-03-28T10:34:36+08:00</updated>
+   <updated>2017-03-28T10:41:25+08:00</updated>
    <id>http://localhost:4000</id>
    <author>
      <name>handsomehow</name>
@@ -509,6 +509,16 @@
      <updated>2017-03-22T19:55:20+08:00</updated>
      <id>http://localhost:4000/two%20point/2017/03/22/scoj4493</id>
      <content type="html">&lt;p&gt;&lt;a href=&quot;http://acm.scu.edu.cn/soj/problem.action?id=4493&quot;&gt;链接&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;题意:&lt;/p&gt;
+
+&lt;p&gt;求两个字符串的最长公共子串&lt;/p&gt;
+
+&lt;p&gt;题解:&lt;/p&gt;
+
+&lt;p&gt;可以后缀数组,也可以二分+哈希,这里我用二分+哈希做.&lt;/p&gt;
+
+&lt;p&gt;logn二分,nlogn检查,总复杂度O(nlognlogn),1秒得冲一冲&lt;/p&gt;
 
 &lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cm&quot;&gt;/*************************************************************************
     &amp;gt; File Name: scoj4493.cpp
