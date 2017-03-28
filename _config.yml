@@ -88,6 +88,10 @@ customLinks:
     - text: old blog
       url: http://blog.csdn.net/handsomehow
     message: old blog    
+  - item:
+    - text: swjtu Online Judge
+      url: http://swjtuoj.cn
+    message: friends  
 
 #googleAnaly, your id link UA-12345678-X
 googleAnaly:
