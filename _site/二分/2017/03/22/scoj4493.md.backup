@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>第一篇博客 - handsomehow</title>
+        <title>SCUOJ4493 二分+哈希 - handsomehow</title>
         <!-- meta -->
 		<meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -98,15 +98,153 @@
             <div class="container fn-clear">
                 <div class="main">
                     <div class="article article-post">
-    <h2 class="title">第一篇博客</h2>
+    <h2 class="title">SCUOJ4493 二分+哈希</h2>
     <div class="info">
         <span class="info-title"><i class="icon-calendar"></i> Published: </span>
-        <span class="info-date">07 Mar 2017</span>
+        <span class="info-date">22 Mar 2017</span>
         <span class="info-title"><i class="icon-folder-open"></i> Category: </span>
-        <span class="info-link"><a href="http://localhost:4000/categories.html#others-ref" >others</a></span>
+        <span class="info-link"><a href="http://localhost:4000/categories.html#二分-ref" >二分</a></span>
     </div>
-    <p>hello the cruel world</p>
+    SCOJ 4493 [DNA](http://acm.scu.edu.cn/soj/problem.action?id=4493)
 
+题意:
+
+求两个字符串的最长公共子串
+
+题解:
+
+可以后缀数组做,也可以二分哈希,这里我用二分+哈希来做
+
+二分长度,O(nlong(n))判定,总复杂度O(nlog(n)log(n)),1秒还是冲冲过去的.
+
+```c++
+/*************************************************************************
+    > File Name: scoj4493.cpp
+    > Author: HandsomeHow
+    > Mail: handsomehowyxh@gmail.com 
+    > Created Time: 2017/3/22 11:17:35
+ ************************************************************************/
+
+#include <bits/stdc++.h>
+using namespace std;
+
+#define rep(i,a,b) for(int i=(a);i<=(b);i++)
+#define per(i,a,b) for(int i=(a);i>=(b);i--)
+typedef long long ll;
+typedef unsigned long long ull;
+typedef pair <int, int> pii;
+const int inf=0x3f3f3f3f;
+const double eps=1e-8;
+const int mod=1000000007;
+const double pi=acos(-1.0);
+inline void gn(long long&x){
+    int sg=1;char c;while(((c=getchar())<'0'||c>'9')&&c!='-');c=='-'?(sg=-1,x=0):(x=c-'0');
+    while((c=getchar())>='0'&&c<='9')x=x*10+c-'0';x*=sg;}
+inline void gn(int&x){long long t;gn(t);x=t;}
+inline void gn(unsigned long long&x){long long t;gn(t);x=t;}
+ll gcd(ll a,ll b){return a? gcd(b%a,a):b;}
+ll powmod(ll a,ll x,ll mod){ll t=1ll;while(x){if(x&1)t=t*a%mod;a=a*a%mod;x>>=1;}return t;}
+// (づ°ω°)づe★------------------------------------------------
+ll md[] = { 1000000009,1000000007 };
+ll ky[] = { 1000000007,19260817 };
+const int maxn= 5555;
+set<pii>haha;
+char s1[maxn], s2[maxn];
+int len;
+
+ll hh[maxn][2];
+ll aa[maxn][2];
+
+int mm[2];
+pii subhaha1(int l, int r){
+    ll ret[2]; 
+    rep(i,0,1){
+        ret[i] = (md[i] + hh[r][i] - (hh[l-1][i] * mm[i])%md[i])%md[i];
+    }
+    return mp((int)ret[0],(int)ret[1]);
+}
+
+pii subhaha2(int l, int r){
+    ll ret[2]; 
+    rep(i,0,1){
+        ret[i] = (md[i] + aa[r][i] - (aa[l-1][i] * mm[i])%md[i])%md[i];
+    }
+    return mp((int)ret[0],(int)ret[1]);
+}
+
+void init(){
+    int i;
+    for( i =  1; ; ++i){
+        if(s1[i] == 'A'){
+            rep(j,0,1){
+                hh[i][j] =  (hh[i-1][j] * ky[j] + 'A') % md[j] ;
+            }
+            rep(j,0,1){
+                aa[i][j] =  (aa[i-1][j] * ky[j] + 'T') % md[j] ;
+            }
+        }else if(s1[i] == 'T'){
+            rep(j,0,1){
+                hh[i][j] =  (hh[i-1][j] * ky[j] + 'T') % md[j] ;
+            }
+            rep(j,0,1){
+                aa[i][j] =  (aa[i-1][j] * ky[j] + 'A') % md[j] ;
+            }
+        }else if(s1[i] == 'C'){
+            rep(j,0,1){
+                hh[i][j] =  (hh[i-1][j] * ky[j] + 'C') % md[j] ;
+            }
+            rep(j,0,1){
+                aa[i][j] =  (aa[i-1][j] * ky[j] + 'G') % md[j] ;
+            }
+        }else if(s1[i] == 'G'){
+            rep(j,0,1){
+                hh[i][j] =  (hh[i-1][j] * ky[j] + 'G') % md[j] ;
+            }
+            rep(j,0,1){
+                aa[i][j] =  (aa[i-1][j] * ky[j] + 'C') % md[j] ;
+            }
+        }else break;
+    }
+    len = i - 1;
+}
+
+bool check(int sz){
+    if(sz == 0)
+        return true;
+    haha.clear();
+    rep(i,0,1)
+        mm[i] = powmod(ky[i],sz,md[i]);
+    rep(i,sz,len){
+        pii sub = subhaha1(i-sz+1,i);
+        haha.insert(sub);
+    }
+    rep(i,sz,len){
+        pii sub = subhaha2(i-sz+1,i);
+        if(haha.count(sub))
+            return true;
+    }
+    return false;
+}
+
+
+int main(){
+    int T;gn(T);
+    while(T--){
+        gets(s1+1);
+        init();
+        int l = 0, r = len;
+        while(r > l){
+            int mid = (l + r + 1) >> 1;
+            if(check(mid))
+                l = mid;
+            else
+                r = mid - 1;
+        }
+        printf("%d\n",l);
+    }
+    return 0;
+}
+```
 
     <div class="bdsharebuttonbox">
         <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
@@ -119,8 +257,10 @@
     </div>
     <nav class="article-previous fn-clear">
         
+        <a class="prev" href="/%E5%A5%97%E9%A2%98/2017/03/22/2016%E5%B7%9D%E5%A4%A7%E6%A0%A1%E8%B5%9B.html" rel="bookmark">&laquo;&nbsp;四川大学2016校赛</a>
         
-        <a class="next" href="/%E5%A5%97%E9%A2%98/2017/03/08/%E7%8E%B2%E7%8F%91%E6%9D%AFRound-11.html" rel="bookmark">玲珑杯Round#11&nbsp;&raquo;</a>
+        
+        <a class="next" href="/%E7%BD%91%E7%BB%9C%E6%B5%81/2017/03/24/bzoj1497.html" rel="bookmark">bzoj1497-最大权闭合子图&nbsp;&raquo;</a>
         
     </nav>
     <div class="comment">

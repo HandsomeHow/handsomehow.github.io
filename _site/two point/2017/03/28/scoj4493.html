@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>SCUOJ4493 二分+哈希 - handsomehow</title>
+        <title>CodeForces 762C two point - handsomehow</title>
         <!-- meta -->
 		<meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -98,24 +98,20 @@
             <div class="container fn-clear">
                 <div class="main">
                     <div class="article article-post">
-    <h2 class="title">SCUOJ4493 二分+哈希</h2>
+    <h2 class="title">CodeForces 762C two point</h2>
     <div class="info">
         <span class="info-title"><i class="icon-calendar"></i> Published: </span>
-        <span class="info-date">22 Mar 2017</span>
+        <span class="info-date">28 Mar 2017</span>
         <span class="info-title"><i class="icon-folder-open"></i> Category: </span>
-        <span class="info-link"><a href="http://localhost:4000/categories.html#二分-ref" >二分</a></span>
+        <span class="info-link"><a href="http://localhost:4000/categories.html#two point-ref" >two point</a></span>
     </div>
-    <p>SCOJ 4493 <a href="http://acm.scu.edu.cn/soj/problem.action?id=4493">DNA</a></p>
+    <p><a href="http://codeforces.com/problemset/problem/762/C">链接</a></p>
 
-<p>题意:</p>
+<p>题意:给你一个S串和一个T串(长度&lt;=1e5),让你在T串种删去一个长度尽可能少的子串(长度可为0,可为T的长度),使得删除后的T串是S的一个子序列.</p>
 
-<p>求两个字符串的最长公共子串</p>
+<p>题解:直接考虑删去可能有点困难,于是我们反过来想,从T串左边选一部分,右边选一部分,然后使得他成为S串的子串.</p>
 
-<p>题解:</p>
-
-<p>可以后缀数组做,也可以二分哈希,这里我用二分+哈希来做</p>
-
-<p>二分长度,O(nlong(n))判定,总复杂度O(nlog(n)log(n)),1秒还是冲冲过去的.</p>
+<p>于是我们可以想到一个two point维护两个串的下标,从左往右遍历,维护s串的每一个字符能匹配到T串的哪个位置,然后再反向遍历一遍,最后再遍历一下整个串就可以得到答案.</p>
 
 <div class="language-c++ highlighter-rouge"><pre class="highlight"><code><span class="cm">/*************************************************************************
     &gt; File Name: scoj4493.cpp
@@ -246,6 +242,7 @@
 </code></pre>
 </div>
 
+
     <div class="bdsharebuttonbox">
         <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
         <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
@@ -257,10 +254,10 @@
     </div>
     <nav class="article-previous fn-clear">
         
-        <a class="prev" href="/%E5%A5%97%E9%A2%98/2017/03/22/2016%E5%B7%9D%E5%A4%A7%E6%A0%A1%E8%B5%9B.html" rel="bookmark">&laquo;&nbsp;四川大学2016校赛</a>
+        <a class="prev" href="/%E6%95%B0%E5%AD%A6/2017/03/28/CodeForces792C.html" rel="bookmark">&laquo;&nbsp;CodeForces 792C 数学</a>
         
         
-        <a class="next" href="/%E7%BD%91%E7%BB%9C%E6%B5%81/2017/03/24/bzoj1497.html" rel="bookmark">bzoj1497-最大权闭合子图&nbsp;&raquo;</a>
+        <a class="next" href="/two%20point/2017/03/28/CodeForces762C.html" rel="bookmark">CodeForces 762C two point&nbsp;&raquo;</a>
         
     </nav>
     <div class="comment">
@@ -289,6 +286,8 @@
                             
                                 <li><a href="http://localhost:4000/two%20point/2017/03/28/CodeForces762C.html" title="CodeForces 762C two point" rel="bookmark">CodeForces 762C two point</a></li>
                             
+                                <li><a href="http://localhost:4000/two%20point/2017/03/28/scoj4493.html" title="CodeForces 762C two point" rel="bookmark">CodeForces 762C two point</a></li>
+                            
                                 <li><a href="http://localhost:4000/%E6%95%B0%E5%AD%A6/2017/03/28/CodeForces792C.html" title="CodeForces 792C 数学" rel="bookmark">CodeForces 792C 数学</a></li>
                             
                                 <li><a href="http://localhost:4000/dfs/2017/03/27/CodeForces686D.html" title="CodeForces 686D 树的重心" rel="bookmark">CodeForces 686D 树的重心</a></li>
@@ -296,8 +295,6 @@
                                 <li><a href="http://localhost:4000/dp/2017/03/27/CodeForces682D.html" title="CodeForces 682D DP" rel="bookmark">CodeForces 682D DP</a></li>
                             
                                 <li><a href="http://localhost:4000/%E7%BD%91%E7%BB%9C%E6%B5%81/2017/03/24/bzoj1497.html" title="bzoj1497-最大权闭合子图" rel="bookmark">bzoj1497-最大权闭合子图</a></li>
-                            
-                                <li><a href="http://localhost:4000/%E4%BA%8C%E5%88%86/2017/03/22/scoj4493.html" title="SCUOJ4493 二分+哈希" rel="bookmark">SCUOJ4493 二分+哈希</a></li>
                             
                         </ul>
                     </div>
