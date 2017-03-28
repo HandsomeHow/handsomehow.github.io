@@ -67,6 +67,7 @@ author:
     simpleIntro: Nothing is left because the auther is too lazy
     detailIntro:
       <p>本科在读....</p>
+      <p>智障儿童....</p>
       <p></p>
 
 #Follow me, you can choose your icon by http://fortawesome.github.io/Font-Awesome/icons/#brand
@@ -91,7 +92,10 @@ customLinks:
   - item:
     - text: swjtu Online Judge
       url: http://swjtuoj.cn
-    message: friends  
+    - text: Desgard_gua
+      url: http://www.desgard.com/
+    message: Friends  
+    
 
 #googleAnaly, your id link UA-12345678-X
 googleAnaly:
