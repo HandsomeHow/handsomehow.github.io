@@ -1,7 +1,7 @@
 ---
 layout: post
 title: QingdaoU开源OJ后期使用与维护
-data: 2017-03-20 21:52
+date: 2017-03-20 21:52
 category: "OJ维护"
 ---
 
