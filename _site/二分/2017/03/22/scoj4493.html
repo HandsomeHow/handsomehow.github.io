@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>SCUOJ4493  二分+哈希 - handsomehow</title>
+        <title>SCUOJ4493 二分+哈希 - handsomehow</title>
         <!-- meta -->
 		<meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -98,22 +98,26 @@
             <div class="container fn-clear">
                 <div class="main">
                     <div class="article article-post">
-    <h2 class="title">SCUOJ4493  二分+哈希</h2>
+    <h2 class="title">SCUOJ4493 二分+哈希</h2>
     <div class="info">
         <span class="info-title"><i class="icon-calendar"></i> Published: </span>
         <span class="info-date">22 Mar 2017</span>
         <span class="info-title"><i class="icon-folder-open"></i> Category: </span>
-        <span class="info-link"><a href="http://localhost:4000/categories.html#组合数学-ref" >组合数学</a></span>
+        <span class="info-link"><a href="http://localhost:4000/categories.html#二分-ref" >二分</a></span>
     </div>
-    <p>SCOJ 4493 <a href="http://acm.scu.edu.cn/soj/problem.action?id=4493">DNA</a>
-题意：
-求两个字符串的最长公共子串
-题解：
-可用后缀数组做，然而我不会，于是二分哈希。</p>
+    <p>SCOJ 4493 <a href="http://acm.scu.edu.cn/soj/problem.action?id=4493">DNA</a></p>
 
-<p>二分长度，O(nlog()n)判定，总复杂度O(nlog(n)log()n),1秒还是有点悬的。</p>
+<p>题意:</p>
 
-<div class="language-c highlighter-rouge"><pre class="highlight"><code><span class="cm">/*************************************************************************
+<p>求两个字符串的最长公共子串</p>
+
+<p>题解:</p>
+
+<p>可以后缀数组做,也可以二分哈希,这里我用二分+哈希来做</p>
+
+<p>二分长度,O(nlong(n))判定,总复杂度O(nlog(n)log(n)),1秒还是冲冲过去的.</p>
+
+<div class="language-c++ highlighter-rouge"><pre class="highlight"><code><span class="cm">/*************************************************************************
     &gt; File Name: scoj4493.cpp
     &gt; Author: HandsomeHow
     &gt; Mail: handsomehowyxh@gmail.com 
@@ -121,7 +125,7 @@
  ************************************************************************/</span>
 
 <span class="cp">#include &lt;bits/stdc++.h&gt;
-</span><span class="n">using</span> <span class="n">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
 <span class="cp">#define rep(i,a,b) for(int i=(a);i&lt;=(b);i++)
 #define per(i,a,b) for(int i=(a);i&gt;=(b);i--)
@@ -131,7 +135,7 @@
 <span class="k">const</span> <span class="kt">int</span> <span class="n">inf</span><span class="o">=</span><span class="mh">0x3f3f3f3f</span><span class="p">;</span>
 <span class="k">const</span> <span class="kt">double</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">;</span>
 <span class="k">const</span> <span class="kt">int</span> <span class="n">mod</span><span class="o">=</span><span class="mi">1000000007</span><span class="p">;</span>
-<span class="k">const</span> <span class="kt">double</span> <span class="n">pi</span><span class="o">=</span><span class="n">acos</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">pi</span><span class="o">=</span><span class="n">acos</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">);</span>
 <span class="kr">inline</span> <span class="kt">void</span> <span class="n">gn</span><span class="p">(</span><span class="kt">long</span> <span class="kt">long</span><span class="o">&amp;</span><span class="n">x</span><span class="p">){</span>
     <span class="kt">int</span> <span class="n">sg</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="kt">char</span> <span class="n">c</span><span class="p">;</span><span class="k">while</span><span class="p">(((</span><span class="n">c</span><span class="o">=</span><span class="n">getchar</span><span class="p">())</span><span class="o">&lt;</span><span class="sc">'0'</span><span class="o">||</span><span class="n">c</span><span class="o">&gt;</span><span class="sc">'9'</span><span class="p">)</span><span class="o">&amp;&amp;</span><span class="n">c</span><span class="o">!=</span><span class="sc">'-'</span><span class="p">);</span><span class="n">c</span><span class="o">==</span><span class="sc">'-'</span><span class="o">?</span><span class="p">(</span><span class="n">sg</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">:</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">c</span><span class="o">-</span><span class="sc">'0'</span><span class="p">);</span>
     <span class="k">while</span><span class="p">((</span><span class="n">c</span><span class="o">=</span><span class="n">getchar</span><span class="p">())</span><span class="o">&gt;=</span><span class="sc">'0'</span><span class="o">&amp;&amp;</span><span class="n">c</span><span class="o">&lt;=</span><span class="sc">'9'</span><span class="p">)</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="o">*</span><span class="mi">10</span><span class="o">+</span><span class="n">c</span><span class="o">-</span><span class="sc">'0'</span><span class="p">;</span><span class="n">x</span><span class="o">*=</span><span class="n">sg</span><span class="p">;}</span>
@@ -203,7 +207,7 @@
     <span class="n">len</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="n">bool</span> <span class="n">check</span><span class="p">(</span><span class="kt">int</span> <span class="n">sz</span><span class="p">){</span>
+<span class="kt">bool</span> <span class="n">check</span><span class="p">(</span><span class="kt">int</span> <span class="n">sz</span><span class="p">){</span>
     <span class="k">if</span><span class="p">(</span><span class="n">sz</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
     <span class="n">haha</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
@@ -293,7 +297,7 @@
                             
                                 <li><a href="http://localhost:4000/%E7%BD%91%E7%BB%9C%E6%B5%81/2017/03/24/bzoj1497.html" title="bzoj1497-最大权闭合子图" rel="bookmark">bzoj1497-最大权闭合子图</a></li>
                             
-                                <li><a href="http://localhost:4000/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/2017/03/22/scoj4493.html" title="SCUOJ4493  二分+哈希" rel="bookmark">SCUOJ4493  二分+哈希</a></li>
+                                <li><a href="http://localhost:4000/%E4%BA%8C%E5%88%86/2017/03/22/scoj4493.html" title="SCUOJ4493 二分+哈希" rel="bookmark">SCUOJ4493 二分+哈希</a></li>
                             
                         </ul>
                     </div>
