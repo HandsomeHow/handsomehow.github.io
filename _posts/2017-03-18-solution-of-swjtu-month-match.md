@@ -4,7 +4,6 @@ title: swjtu2017-3月月赛题解
 date: 2017-03-18 16:15
 category: "套题"
 ---
-
 # Problem A How many different roads?
 假设纸张被划分为n*m个小方格。
 
