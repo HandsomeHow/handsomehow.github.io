@@ -842,7 +842,7 @@ a         {  text-decoration: none; }
 
 	.main {
 		float: left;
-		width: 300px;
+		width: auto;
 		padding: 20px 10px;
 		min-height: 300px;
 		height: auto;
