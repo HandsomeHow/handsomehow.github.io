@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  SPOJ Ada and List 离线二分
-date:   2017-04-03 22:55:15
+date:   2017-04-03 22:55:16
 category: "二分"
 ---
 [题目链接](http://www.spoj.com/problems/ADALIST/en/)
