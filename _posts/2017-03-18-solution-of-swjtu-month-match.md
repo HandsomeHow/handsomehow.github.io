@@ -1,7 +1,7 @@
 ---
 layout: post
 title: swjtu2017-3月月赛题解
-date: 2017-03-18 16:15
+date: 2017-03-18 16:15:02
 category: "套题"
 ---
 # Problem A How many different roads?
