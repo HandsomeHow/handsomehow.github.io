@@ -1,0 +1,95 @@
+---
+layout: post
+title: 第十三届西南交通大学程序设计竞赛决赛
+date: 2017-05-15 11:23:43
+category: "套题"
+---
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+### [Problem A](http://swjtuoj.cn/problem/2380/)
+签到题
+
+### [Problem B](http://swjtuoj.cn/problem/2381/)
+维护一下每一行，每一列最后被修改的时间已经数字，最后查询的时候比较行和列哪个修改的晚就行了。
+
+
+### [Problem C](http://swjtuoj.cn/problem/2382/)
+首先可以将$m$ 与后面的讨论分离。从$m$种颜色中取出k 种颜色涂色，取色部分有$C(m, k)$ 种情况；
+然后通过尝试可以发现，第一个有k种选择，第二个因不能与第一个相同，只有$k-1$ 种选择，第三个也只需与第二个不同，也有$k-1$ 种选择。总的情况数为$k \times{k-1}^{n-1}。但这仅保证了相邻颜色不同，总颜色数不超过$k$种，并没有保证恰好出现$k$种颜色；
+接着就是一个容斥问题，上述计算方法中包含了只含有$2、3、…、(k-1)$种颜色的情况，需要通过容斥原理去除。假设出现$ $ 2 \leq p \leq k-1$种颜色，从$k$种颜色中选取p种进行涂色，方案数为
+$C(k,p) \times p \times {p-1}^{n-1}$ ;
+综上，最后的总方案数为
+$C(m,k) \times ( k \times {k-1}^{n-1} + ∑((-1)^p \times C(k, p) \times p \times {p-1}^{n-1} ) (2 \leq p \leq k-1)$;
+最后，需要注意 $1 \leq n, m \leq10^9$在进行指数运算时，需要使用快速幂。对于组合数，只需要计算C(m,k)和$C(k,p) (1 \leq p \leq k)$，可以采用递推法，即  $C[x,i] = C[x, i-1] * (n-i+1) / i $，因为要取模，所以需要用到i的逆元
+
+### [Problem D](http://swjtuoj.cn/problem/2383/)
+首先当$n$大于3600的时候一定是$YES$，我们可以考虑前缀和$pre[x]%3600$,那前$3601$个前缀和里面肯定有2个模3600后是相同的,那么便有$pre[i]==pre[j] (mod)3600$,也就是$pre[i]-pre[j]=k \times 3600$
+当n小于3600的时候普通的dp/01背包做即可
+
+### [Problem E](http://swjtuoj.cn/problem/2384/)
+考虑每条边对答案的贡献,如果一条边两边的点数是偶数，那么这条边可以不使用，否则，这条边对答案贡献一次
+最小性证明：略
+可行性证明：
+若一条边两边点数为偶数，我们可以直接把这条边删掉，然后变成2个相同的子问题
+若一条边两边点数为奇数，我们可以把这条边两边的点配对，然后把他们从图中拿掉,对于某一边，会变成多个子图，点数为奇数的子图个数是偶数个，我们可以把这些奇数的点最靠近这条被删掉的边拿出来配对，然后删掉他们,然后又变成相同的子问题。
+
+### [Problem F](http://swjtuoj.cn/problem/2385/)
+若将第i个数移到第j位，那么答案会增加$F(j) = pre[i-1] – pre[j-1]-(i-j) \times a[i]$
+ $= pre[i-1]-pre[j-1]-i\times a[i]+j\times a[i]$
+其中$pre[x]$表示前x个数和。 
+然后我们再取$k(k \leq j)$,则$F(k) = pre[i-1]-pre[k-1]-i\times a[i]+k\times a[i]$
+我们可以发现$F(j)-F(k)=(j-k)\times a[i]-pre[j-1]+pre[k-1]$,由于$a_i$是递增的，因此这个东西是大于0的，所以对每个点他的最有决策点就是他能选的尽可能右边的点。
+然后扫一遍即可获得答案
+
+### [Problem G](http://swjtuoj.cn/problem/2386/)
+
+同F，我们考虑枚举一个右端点，然、然后考虑他在哪一个左边的点能取到最大值
+当我们枚举到点I的时候，假设我们的将他移到J点，那么我们有$F(J)=pre[I-1]-pre[J-1]-i \times a[i]+j \times a[i]$
+其中$I$已经作为常量了,那么我们要计算的就是$max(G(I)=J \times a[i]-pre[J-1])$
+我们把$G(i)$当做一条直线,$J$为斜率,$-pre[J-1]$为截距,我们的问题就变成了再一堆直线里找一条直线使得当前的取值最大
+然后$J$和$pre[J-1]$又是单调的,我们可以维护一个下凸包,每次在凸包内二分或者三分斜率来寻找这个最大值即可.
+至于移动$K$次的限制,我们只要将每条直线延迟$K$步后放入凸包即可.
+
+### [Problem H](http://swjtuoj.cn/problem/2387/)
+$dag$上的最长路,树形DP
+用$dp[u]$表示以当前点作为起点的最大值,那么$dp[u]=max(dp[v]+E[u][v])$.
+
+
+### [Problem I](http://swjtuoj.cn/problem/2388/)
+
+我们假设$gcd(a,b)=hgcd(a,b)=g$
+那么我们有$a=k_1 \times g,b=k_2 \times g,gcd(k_1,k_2)=1$
+然后我们计算$hgcd(a,b)$,由于$a,b$都是$g$的倍数，所以$a-b$也是$g$的倍数，所以最后的$hgcd（a，b）$也是g的倍数
+然后我们用$a/g，b/g$替换$a,b$我们就能得到$hgcd(k_1,k_2)=1$,因此我们要满足$gcd(a,b)=hgcd(a,b)$,当且仅当$gcd(k_1,k_2)=1$
+因此当我们执行$hgcd(k_1,k_2)$时，最后$k_1,k_2$会变成$x,1-x (1 \leq x)$
+我们可以倒推一下最后几步
+$x \space 1-x$
+$1 \space x$
+$1+x \space	1$
+$2+x \space	1+x$
+$3+2x \space	2+x$
+$5+3x \space	3+2x$
+$....$
+$F[i]+F[i-1] \times x \space	F[i-1]+F[i-2]\times x$
+其中$F[i]$是斐波那契第$i$项
+
+问题便转换成了$1-n$中有多少对$x,y$满足$x=g*a,y=g*b$,且$x,y$满足上述斐波那契关系
+
+即$1<= g*a,g*b <=n$
+即 $1<=a,b<=n/g$
+
+我们定义$G(x)$表示有多少对数满足	$1 \leq a,b \leq x,$那$gcd(a,b)=hgcd(a,b)=g$的对数就是$G(n/g)$
+我们要计算的就是$G(n/1)+G(n/2)+.+G(n/x)..+G(n/n)$
+不过由于$n \leq 10^{12}$,我们不能枚举分母
+我们不如考虑枚举这个 $n/x$ 我们可以证明$n/x$最多只有$2 \times \sqrt n$个数
+然后累加求和即可
+
+
+### [Problem J](http://swjtuoj.cn/problem/2389/)
+
+可以用2颗线段树来维护,也能分块搞.
+
+### [Problem K](http://swjtuoj.cn/problem/2390/)
+
+暴力签到
