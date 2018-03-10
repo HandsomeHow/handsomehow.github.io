@@ -65,8 +65,8 @@ author:
     imageLink: /images/header.png
     simpleIntro: Nothing is left because the auther is too lazy
     detailIntro:
-      <p>本科在读....</p>
-      <p>智障儿童....</p>
+      <p>本科在读</p>
+      <p>寻找工作中</p>
       <p></p>
 
 #Follow me, you can choose your icon by http://fortawesome.github.io/Font-Awesome/icons/#brand
@@ -98,12 +98,7 @@ customLinks:
     - text: Desgard_gua
       url: http://www.desgard.com/
     - text: HackSwjtu
-      url: http://www.hackswjtu.com/
+      url: http://www.hackswjtu.org/
     message: Friends  
     
-
-#googleAnaly, your id link UA-12345678-X
-googleAnaly:
-  config: false
-  id: UA-58146229-1
 
