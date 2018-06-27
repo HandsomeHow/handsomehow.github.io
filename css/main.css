@@ -885,13 +885,14 @@ a         {  text-decoration: none; }
 	.main {
 		float: left;
 		width: auto;
-		min-width: 300px;
+		min-width: 200px;
 		padding: 20px 10px;
 		min-height: 300px;
 		height: auto;
 		box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
 		background: #e3ded8 url(../images/cnt-top.jpg) repeat-x 0 0;
 		margin-left: 30px;
+		margin-right: 30px;
 	}
 
 	.main .article {
