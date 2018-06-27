@@ -695,6 +695,48 @@ a         {  text-decoration: none; }
     padding-bottom: 0;
     margin-bottom: 0;
 }
+.aside-counter {
+    width: 220px;
+    height: auto;
+    padding: 10px 10px;
+    border-radius: 5px 5px;
+    background: rgba(110, 70, 60, 0.72);
+    text-align: left;
+}
+.aside-counter .det {
+    padding: 10px 0;
+    line-height: 24px;
+    color: #232323;
+    clear: both;
+    height: auto;
+}
+.aside-counter .det-image {
+    width: auto;
+    height: auto;
+    float: left;
+    padding: 2px 2px;
+    background: #fff;
+    border: 1px solid #9d6156;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	display: inline;
+}
+.aside-counter .det-image img {
+    width: auto;
+    height: 30px;
+    display: inline;
+    text-align: left;
+    vertical-align: middle;
+	display:inline;
+}
+.aside-counter .det-text {
+	margin-top:10px;
+    width: auto;
+    padding-left: 10px;
+    float: left;
+    font-size: 15px;
+    line-height: 20px;
+	display: inline;
+}
 .aside-item {
     margin: 20px 0;
 }
@@ -849,6 +891,7 @@ a         {  text-decoration: none; }
 		height: auto;
 		box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
 		background: #e3ded8 url(../images/cnt-top.jpg) repeat-x 0 0;
+		margin-left: 30px;
 	}
 
 	.main .article {
@@ -1434,5 +1477,48 @@ a         {  text-decoration: none; }
 		padding-top: 20px;
 		height: 80px;
 		margin: 0 auto;
+	}
+	.aside-counter {
+		display:none;
+		width: 220px;
+		height: auto;
+		padding: 10px 10px;
+		border-radius: 5px 5px;
+		background: rgba(110, 70, 60, 0.72);
+		text-align: left;
+	}
+	.aside-counter .det {
+		padding: 10px 0;
+		line-height: 24px;
+		color: #232323;
+		clear: both;
+		height: auto;
+	}
+	.aside-counter .det-image {
+		width: auto;
+		height: auto;
+		float: left;
+		padding: 2px 2px;
+		background: #fff;
+		border: 1px solid #9d6156;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		display: inline;
+	}
+	.aside-counter .det-image img {
+		width: auto;
+		height: 30px;
+		display: inline;
+		text-align: left;
+		vertical-align: middle;
+		display:inline;
+	}
+	.aside-counter .det-text {
+		margin-top:10px;
+		width: auto;
+		padding-left: 10px;
+		float: left;
+		font-size: 15px;
+		line-height: 20px;
+		display: inline;
 	}
 }
